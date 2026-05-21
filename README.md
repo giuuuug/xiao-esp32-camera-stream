@@ -17,26 +17,30 @@ This component packages all of that into three function calls. The default board
 
 ## Requirements
 
-- ESP-IDF **v6.0.1** or later
+- ESP-IDF **v6.0.1** or later (FreeRTOS-based — no other RTOS supported)
 - A board with a camera module (OV2640, OV3660, or compatible)
 - PSRAM recommended for VGA or higher resolution (the XIAO ESP32S3 Sense has 8 MB PSRAM)
+
+## Development environment
+
+This component was developed and tested with:
+
+- **VS Code** + [ESP-IDF Extension](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension) (recommended setup)
+- ESP-IDF v6.0.1 toolchain
+
+The extension handles toolchain installation, `idf.py` commands, flashing, and serial monitoring from within VS Code. See the [ESP-IDF Extension docs](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/tutorial/install.md) to get started.
 
 ## Installation
 
 ### Option A — ESP Component Registry (recommended)
 
-Add the dependency to your project's `idf_component.yml`:
-
-```yaml
-dependencies:
-  your_namespace/camera-stream: "^1.0.0"
-```
-
-Then run:
+Run this command from your project root:
 
 ```bash
-idf.py update-dependencies
+idf.py add-dependency "giuuuug/xiao-esp32-camera-stream^1.0.0"
 ```
+
+This adds the dependency to your `idf_component.yml` and downloads the component automatically on the next build.
 
 ### Option B — Copy into your project
 
@@ -210,7 +214,3 @@ Content-Length: <size>
 The connection stays open indefinitely. The server captures a frame, sends it, and immediately captures the next one. The client renders each frame as it arrives — no buffering, no latency.
 
 Compatible with: Chrome, Firefox, Safari, VLC, ffmpeg, and any HTTP client that supports multipart responses.
-
-## License
-
-MIT

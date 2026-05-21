@@ -1,5 +1,6 @@
-version: "1.0.0"
+version: "1.0.1"
 description: "MJPEG HTTP streaming server for ESP32 boards with camera. Plug-and-play for XIAO ESP32S3 Sense (OV2640/OV3660). Configurable via menuconfig."
+license: "MIT"
 url: "https://github.com/giuuuug/xiao-esp32-camera-stream"
 documentation: "https://github.com/giuuuug/xiao-esp32-camera-stream/blob/main/README.md"
 issues: "https://github.com/giuuuug/xiao-esp32-camera-stream/issues"
