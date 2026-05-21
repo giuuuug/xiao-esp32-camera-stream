@@ -1,0 +1,15 @@
+version: "1.0.0"
+description: "MJPEG HTTP streaming server for ESP32 boards with camera. Plug-and-play for XIAO ESP32S3 Sense (OV2640/OV3660). Configurable via menuconfig."
+url: "https://github.com/giuuuug/xiao-esp32-camera-stream"
+documentation: "https://github.com/giuuuug/xiao-esp32-camera-stream/blob/main/README.md"
+issues: "https://github.com/giuuuug/xiao-esp32-camera-stream/issues"
+
+targets:
+  - esp32
+  - esp32s2
+  - esp32s3
+  - esp32p4
+
+dependencies:
+  idf: ">=6.0.1"
+  espressif/esp32-camera: "^2.0.0"

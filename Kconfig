@@ -1,0 +1,145 @@
+menu "Camera Stream"
+
+    config CMSTE_SERVER_PORT
+        int "HTTP server port"
+        default 80
+        range 1 65535
+
+    # ── Board profile ──────────────────────────────────────────────────────────
+
+    choice CMSTE_BOARD_PROFILE
+        prompt "Board profile"
+        default CMSTE_BOARD_XIAO_ESP32S3_SENSE
+        help
+            Select your board to apply the correct pin mapping automatically.
+            Choose "Custom" to configure each pin manually.
+
+        config CMSTE_BOARD_XIAO_ESP32S3_SENSE
+            bool "XIAO ESP32S3 Sense (Seeed Studio)"
+        config CMSTE_BOARD_AITHINKER_ESP32_CAM
+            bool "AI-Thinker ESP32-CAM"
+        config CMSTE_BOARD_WROVER_KIT
+            bool "ESP-WROVER-KIT v4.1"
+        config CMSTE_BOARD_CUSTOM
+            bool "Custom (configure pins manually below)"
+    endchoice
+
+    # ── Custom pin mapping — only visible when Custom is selected ──────────────
+
+    if CMSTE_BOARD_CUSTOM
+
+        config CMSTE_PIN_PWDN
+            int "PWDN pin (-1 = not used)"
+            default -1
+
+        config CMSTE_PIN_RESET
+            int "RESET pin (-1 = not used)"
+            default -1
+
+        config CMSTE_PIN_XCLK
+            int "XCLK pin"
+            default 0
+
+        config CMSTE_PIN_SIOD
+            int "SIOD (SDA) pin"
+            default 26
+
+        config CMSTE_PIN_SIOC
+            int "SIOC (SCL) pin"
+            default 27
+
+        config CMSTE_PIN_Y9
+            int "Y9 pin"
+            default 35
+
+        config CMSTE_PIN_Y8
+            int "Y8 pin"
+            default 34
+
+        config CMSTE_PIN_Y7
+            int "Y7 pin"
+            default 39
+
+        config CMSTE_PIN_Y6
+            int "Y6 pin"
+            default 36
+
+        config CMSTE_PIN_Y5
+            int "Y5 pin"
+            default 21
+
+        config CMSTE_PIN_Y4
+            int "Y4 pin"
+            default 19
+
+        config CMSTE_PIN_Y3
+            int "Y3 pin"
+            default 18
+
+        config CMSTE_PIN_Y2
+            int "Y2 pin"
+            default 5
+
+        config CMSTE_PIN_VSYNC
+            int "VSYNC pin"
+            default 25
+
+        config CMSTE_PIN_HREF
+            int "HREF pin"
+            default 23
+
+        config CMSTE_PIN_PCLK
+            int "PCLK pin"
+            default 22
+
+    endif # CMSTE_BOARD_CUSTOM
+
+    # ── Image quality — always visible ─────────────────────────────────────────
+
+    config CMSTE_XCLK_FREQ_HZ
+        int "XCLK frequency (Hz)"
+        default 20000000
+        range 10000000 40000000
+
+    config CMSTE_FRAME_SIZE
+        int "Frame size (see sensor.h framesize_t: 5=QVGA, 8=VGA, 13=UXGA)"
+        default 8
+        range 0 13
+
+    config CMSTE_JPEG_QUALITY
+        int "JPEG quality (0=best, 63=worst)"
+        default 12
+        range 0 63
+
+    config CMSTE_FB_COUNT
+        int "Frame buffer count"
+        default 2
+        range 1 4
+        help
+            2 is recommended for smooth streaming.
+
+    config CMSTE_FB_IN_PSRAM
+        bool "Store frame buffers in PSRAM"
+        default y
+        help
+            Requires PSRAM enabled in the board config (ESP32S3 Sense has 8MB PSRAM).
+            Disable only if your board has no PSRAM — use FRAMESIZE_QVGA or smaller
+            to fit frames in internal RAM.
+
+    # ── Image orientation ──────────────────────────────────────────────────────
+
+    config CMSTE_VFLIP
+        bool "Vertical flip"
+        default y
+        help
+            Flip the image vertically. Enable if the camera is mounted upside-down
+            (default on XIAO ESP32S3 Sense).
+
+    config CMSTE_HMIRROR
+        bool "Horizontal mirror"
+        default n
+        help
+            Mirror the image horizontally. Combined with vertical flip gives 180°
+            rotation.
+
+endmenu
